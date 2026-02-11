@@ -1,6 +1,7 @@
-import { PrismaClient, Category } from '@prisma/client'
+import { PrismaClient, Category, Role } from '@prisma/client'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { Pool } from 'pg'
+import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 
 const pool = new Pool({
@@ -124,6 +125,23 @@ const dishes = [
 ]
 
 async function main() {
+  // Seed admin user
+  console.log('Seeding admin user...')
+  const hashedPassword = await bcrypt.hash('admin123', 10)
+
+  const adminUser = await prisma.user.upsert({
+    where: { email: 'admin@restaurante.com' },
+    update: {},
+    create: {
+      email: 'admin@restaurante.com',
+      password: hashedPassword,
+      name: 'Administrador',
+      role: Role.ADMIN,
+    },
+  })
+  console.log(`Admin user ready: ${adminUser.email}`)
+
+  // Seed dishes
   console.log('Seeding dishes...')
 
   // Delete existing dishes to avoid duplicates
