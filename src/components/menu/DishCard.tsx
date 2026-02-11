@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Dish, categoryLabels } from "@/types/menu";
 
 interface DishCardProps {
@@ -23,12 +22,10 @@ export default function DishCard({ dish, variant = "default" }: DishCardProps) {
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden bg-gray-100">
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
-        <Image
+        <img
           src={dish.image}
           alt={dish.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = "https://placehold.co/400x300/f5f5f5/999999?text=Plato";
