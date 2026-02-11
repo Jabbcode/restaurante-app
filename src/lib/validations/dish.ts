@@ -8,8 +8,8 @@ export const dishSchema = z.object({
   category: z.enum(["entrantes", "principales", "postres", "bebidas"], {
     message: "Categoría inválida",
   }),
-  featured: z.boolean().default(false),
-  available: z.boolean().default(true),
+  featured: z.boolean(),
+  available: z.boolean(),
 })
 
 export const dishUpdateSchema = dishSchema.partial()
