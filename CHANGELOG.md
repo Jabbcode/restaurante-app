@@ -6,6 +6,20 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [v1.2.0] - 2026-02-11 - CRUD de Platos
+
+### Añadido
+
+#### Dashboard
+- [018] Página principal del dashboard con estadísticas en tiempo real
+
+#### Gestión de Platos
+- [019] APIs CRUD de platos (GET, POST, PATCH, DELETE)
+- [020] Vista de lista de platos con filtros por categoría
+- [021] Formulario de creación y edición de platos con validación
+
+---
+
 ## [v1.1.0] - 2026-02-11 - Dashboard Administrativo
 
 ### Añadido
@@ -47,5 +61,6 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+[v1.2.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.2.0
 [v1.1.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.0.0
