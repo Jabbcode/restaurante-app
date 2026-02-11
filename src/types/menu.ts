@@ -8,6 +8,7 @@ export interface Dish {
   image: string;
   category: Category;
   featured?: boolean;
+  available?: boolean;
 }
 
 export const categoryLabels: Record<Category, string> = {

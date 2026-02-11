@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getFeaturedDishes } from "@/data/dishes";
+import { getFeaturedDishes } from "@/lib/dishes";
 import DishCard from "@/components/menu/DishCard";
 
-export default function Home() {
-  const featuredDishes = getFeaturedDishes();
+export default async function Home() {
+  const featuredDishes = await getFeaturedDishes();
 
   return (
     <>
