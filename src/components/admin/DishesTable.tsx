@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/Toast"
 import { categoryLabels } from "@/types/menu"
 
 interface Dish {
@@ -22,6 +23,7 @@ interface DishesTableProps {
 
 export default function DishesTable({ dishes }: DishesTableProps) {
   const router = useRouter()
+  const { showToast } = useToast()
   const [filter, setFilter] = useState("todos")
   const [deleting, setDeleting] = useState<string | null>(null)
 
@@ -36,12 +38,13 @@ export default function DishesTable({ dishes }: DishesTableProps) {
     try {
       const res = await fetch(`/api/platos/${id}`, { method: "DELETE" })
       if (res.ok) {
+        showToast("Plato eliminado correctamente", "success")
         router.refresh()
       } else {
-        alert("Error al eliminar el plato")
+        showToast("Error al eliminar el plato", "error")
       }
     } catch {
-      alert("Error al eliminar el plato")
+      showToast("Error al eliminar el plato", "error")
     } finally {
       setDeleting(null)
     }
@@ -55,10 +58,11 @@ export default function DishesTable({ dishes }: DishesTableProps) {
         body: JSON.stringify({ available: !available }),
       })
       if (res.ok) {
+        showToast(available ? "Plato marcado como no disponible" : "Plato marcado como disponible", "success")
         router.refresh()
       }
     } catch {
-      alert("Error al actualizar disponibilidad")
+      showToast("Error al actualizar disponibilidad", "error")
     }
   }
 
