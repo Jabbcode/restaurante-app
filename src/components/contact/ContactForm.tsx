@@ -2,6 +2,15 @@
 
 import { useState } from "react";
 
+// Phone validation regex: allows +, spaces, dashes, and requires at least 9 digits
+const phoneRegex = /^[+]?[\d\s-]{9,}$/;
+
+function validatePhone(phone: string): string | null {
+  if (!phone) return null; // Phone is optional in contact form
+  if (!phoneRegex.test(phone)) return "Formato de teléfono inválido (ej: +34 600 123 456)";
+  return null;
+}
+
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     nombre: "",
@@ -12,9 +21,18 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate phone before submission (only if provided)
+    const phoneValidationError = validatePhone(formData.telefono);
+    if (phoneValidationError) {
+      setPhoneError(phoneValidationError);
+      return;
+    }
+
     setSending(true);
     setError(null);
 
@@ -49,7 +67,20 @@ export default function ContactForm() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Clear phone error when user starts typing
+    if (name === "telefono" && phoneError) {
+      setPhoneError(null);
+    }
+  };
+
+  const handlePhoneBlur = () => {
+    if (formData.telefono) {
+      const error = validatePhone(formData.telefono);
+      setPhoneError(error);
+    }
   };
 
   if (submitted) {
@@ -131,9 +162,15 @@ export default function ContactForm() {
           name="telefono"
           value={formData.telefono}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+          onBlur={handlePhoneBlur}
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors ${
+            phoneError ? "border-red-500" : "border-gray-300"
+          }`}
           placeholder="+34 600 000 000"
         />
+        {phoneError && (
+          <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+        )}
       </div>
 
       <div>
