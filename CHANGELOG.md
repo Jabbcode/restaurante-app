@@ -6,6 +6,25 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [v1.3.0] - 2026-02-12 - Mensajes y Reservaciones
+
+### Añadido
+
+#### Mensajes de Contacto
+- [022] API CRUD de mensajes (GET, POST, PATCH, DELETE)
+- [023] Vista de lista de mensajes con filtros por estado
+- [024] Vista de detalle de mensaje con gestión de estados
+- Integración del formulario de contacto con la API
+
+#### Reservaciones
+- [025] API CRUD de reservaciones con filtros por fecha y estado
+- [026] Página pública `/reservaciones` con formulario de reserva
+- [027] Vista de lista de reservaciones en admin con filtros
+- [028] Vista de detalle con edición y gestión de estados
+- Enlace "Reservaciones" en menú de navegación
+
+---
+
 ## [v1.2.0] - 2026-02-11 - CRUD de Platos
 
 ### Añadido
@@ -61,6 +80,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+[v1.3.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.3.0
 [v1.2.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.2.0
 [v1.1.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.1.0
 [v1.0.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.0.0
