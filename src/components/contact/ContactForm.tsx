@@ -10,15 +10,40 @@ export default function ContactForm() {
     mensaje: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulamos envío (sin backend por ahora)
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
-    }, 3000);
+    setSending(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/mensajes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.nombre,
+          email: formData.email,
+          phone: formData.telefono || undefined,
+          message: formData.mensaje,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Error al enviar el mensaje");
+      }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ nombre: "", email: "", telefono: "", mensaje: "" });
+      }, 3000);
+    } catch {
+      setError("No se pudo enviar el mensaje. Por favor, inténtalo de nuevo.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleChange = (
@@ -130,11 +155,18 @@ export default function ContactForm() {
         />
       </div>
 
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          {error}
+        </div>
+      )}
+
       <button
         type="submit"
-        className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+        disabled={sending}
+        className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-orange-400 text-white font-medium py-3 px-6 rounded-lg transition-colors"
       >
-        Enviar Mensaje
+        {sending ? "Enviando..." : "Enviar Mensaje"}
       </button>
     </form>
   );
