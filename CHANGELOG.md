@@ -6,6 +6,17 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [v1.4.0] - 2026-02-12 - Estadísticas y Mejoras UX
+
+### Added
+- [029] API de estadísticas del dashboard con métricas en tiempo real
+- [030] Sistema de notificaciones toast para feedback de acciones
+
+### Fixed
+- [032] Validación de formato de teléfono en formularios de reservación y contacto
+
+---
+
 ## [v1.3.0] - 2026-02-12 - Mensajes y Reservaciones
 
 ### Añadido
@@ -80,6 +91,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+[v1.4.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.3.0
 [v1.2.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.2.0
 [v1.1.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.1.0
