@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 interface Reservation {
@@ -206,6 +207,12 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
                           Completar
                         </button>
                       )}
+                      <Link
+                        href={`/admin/reservaciones/${res.id}`}
+                        className="text-sm text-blue-600 hover:text-blue-800"
+                      >
+                        Ver
+                      </Link>
                       <a
                         href={`tel:${res.phone}`}
                         className="text-sm text-gray-500 hover:text-gray-700"
