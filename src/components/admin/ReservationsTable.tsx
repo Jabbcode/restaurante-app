@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/Toast"
 
 interface Reservation {
   id: string
@@ -40,6 +41,7 @@ const statusColors: Record<Reservation["status"], string> = {
 
 export default function ReservationsTable({ reservations }: ReservationsTableProps) {
   const router = useRouter()
+  const { showToast } = useToast()
   const [filter, setFilter] = useState("todos")
   const [dateFilter, setDateFilter] = useState("")
 
@@ -66,10 +68,11 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
         body: JSON.stringify({ status }),
       })
       if (res.ok) {
+        showToast(`Reservación ${statusLabels[status].toLowerCase()}`, "success")
         router.refresh()
       }
     } catch {
-      alert("Error al actualizar el estado")
+      showToast("Error al actualizar el estado", "error")
     }
   }
 

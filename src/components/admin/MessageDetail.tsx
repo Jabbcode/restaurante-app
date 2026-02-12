@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/Toast"
 
 interface Message {
   id: string
@@ -34,6 +35,7 @@ const statusColors: Record<Message["status"], string> = {
 
 export default function MessageDetail({ message }: MessageDetailProps) {
   const router = useRouter()
+  const { showToast } = useToast()
   const [status, setStatus] = useState(message.status)
   const [updating, setUpdating] = useState(false)
   const [deleting, setDeleting] = useState(false)
@@ -60,12 +62,13 @@ export default function MessageDetail({ message }: MessageDetailProps) {
       })
       if (res.ok) {
         setStatus(newStatus)
+        showToast("Estado actualizado", "success")
         router.refresh()
       } else {
-        alert("Error al actualizar el estado")
+        showToast("Error al actualizar el estado", "error")
       }
     } catch {
-      alert("Error al actualizar el estado")
+      showToast("Error al actualizar el estado", "error")
     } finally {
       setUpdating(false)
     }
@@ -78,13 +81,14 @@ export default function MessageDetail({ message }: MessageDetailProps) {
     try {
       const res = await fetch(`/api/mensajes/${message.id}`, { method: "DELETE" })
       if (res.ok) {
+        showToast("Mensaje eliminado", "success")
         router.push("/admin/mensajes")
         router.refresh()
       } else {
-        alert("Error al eliminar el mensaje")
+        showToast("Error al eliminar el mensaje", "error")
       }
     } catch {
-      alert("Error al eliminar el mensaje")
+      showToast("Error al eliminar el mensaje", "error")
     } finally {
       setDeleting(false)
     }

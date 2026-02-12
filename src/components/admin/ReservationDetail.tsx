@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/Toast"
 
 interface Reservation {
   id: string
@@ -44,6 +45,7 @@ const timeSlots = [
 
 export default function ReservationDetail({ reservation }: ReservationDetailProps) {
   const router = useRouter()
+  const { showToast } = useToast()
   const [status, setStatus] = useState(reservation.status)
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState({
@@ -86,12 +88,13 @@ export default function ReservationDetail({ reservation }: ReservationDetailProp
       })
       if (res.ok) {
         setStatus(newStatus)
+        showToast(`Reservación ${statusLabels[newStatus].toLowerCase()}`, "success")
         router.refresh()
       } else {
-        alert("Error al actualizar el estado")
+        showToast("Error al actualizar el estado", "error")
       }
     } catch {
-      alert("Error al actualizar el estado")
+      showToast("Error al actualizar el estado", "error")
     } finally {
       setUpdating(false)
     }
@@ -112,12 +115,13 @@ export default function ReservationDetail({ reservation }: ReservationDetailProp
       })
       if (res.ok) {
         setIsEditing(false)
+        showToast("Cambios guardados", "success")
         router.refresh()
       } else {
-        alert("Error al guardar los cambios")
+        showToast("Error al guardar los cambios", "error")
       }
     } catch {
-      alert("Error al guardar los cambios")
+      showToast("Error al guardar los cambios", "error")
     } finally {
       setUpdating(false)
     }
@@ -130,13 +134,14 @@ export default function ReservationDetail({ reservation }: ReservationDetailProp
     try {
       const res = await fetch(`/api/reservaciones/${reservation.id}`, { method: "DELETE" })
       if (res.ok) {
+        showToast("Reservación eliminada", "success")
         router.push("/admin/reservaciones")
         router.refresh()
       } else {
-        alert("Error al eliminar la reservación")
+        showToast("Error al eliminar la reservación", "error")
       }
     } catch {
-      alert("Error al eliminar la reservación")
+      showToast("Error al eliminar la reservación", "error")
     } finally {
       setDeleting(false)
     }

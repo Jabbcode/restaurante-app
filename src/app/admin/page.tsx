@@ -14,6 +14,34 @@ export default async function AdminDashboard() {
         </p>
       </div>
 
+      {/* Today's highlight */}
+      {stats.reservations.today > 0 && (
+        <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">📅</span>
+              <div>
+                <p className="font-medium text-orange-800">
+                  {stats.reservations.today} reservación{stats.reservations.today > 1 ? 'es' : ''} para hoy
+                </p>
+                <p className="text-sm text-orange-600">
+                  {stats.reservations.confirmedToday} confirmada{stats.reservations.confirmedToday !== 1 ? 's' : ''}
+                  {stats.reservations.today - stats.reservations.confirmedToday > 0 &&
+                    `, ${stats.reservations.today - stats.reservations.confirmedToday} pendiente${stats.reservations.today - stats.reservations.confirmedToday > 1 ? 's' : ''}`
+                  }
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/admin/reservaciones"
+              className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+            >
+              Ver reservaciones
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard
@@ -32,12 +60,14 @@ export default async function AdminDashboard() {
           value={stats.messages.total}
           icon="✉️"
           description={stats.messages.pending > 0 ? `${stats.messages.pending} sin leer` : "Todos leídos"}
+          highlight={stats.messages.pending > 0}
         />
         <StatCard
           title="Reservaciones"
           value={stats.reservations.total}
           icon="📅"
           description={stats.reservations.pending > 0 ? `${stats.reservations.pending} pendientes` : "Sin pendientes"}
+          highlight={stats.reservations.pending > 0}
         />
       </div>
 
@@ -62,7 +92,12 @@ export default async function AdminDashboard() {
             <span className="text-2xl">✉️</span>
             <div>
               <p className="font-medium text-gray-800">Ver Mensajes</p>
-              <p className="text-sm text-gray-500">Contactos recibidos</p>
+              <p className="text-sm text-gray-500">
+                {stats.messages.pending > 0
+                  ? `${stats.messages.pending} sin leer`
+                  : "Contactos recibidos"
+                }
+              </p>
             </div>
           </Link>
           <Link
@@ -72,7 +107,12 @@ export default async function AdminDashboard() {
             <span className="text-2xl">📅</span>
             <div>
               <p className="font-medium text-gray-800">Reservaciones</p>
-              <p className="text-sm text-gray-500">Gestionar reservas</p>
+              <p className="text-sm text-gray-500">
+                {stats.reservations.pending > 0
+                  ? `${stats.reservations.pending} pendientes`
+                  : "Gestionar reservas"
+                }
+              </p>
             </div>
           </Link>
         </div>
