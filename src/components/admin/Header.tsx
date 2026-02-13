@@ -2,6 +2,7 @@
 
 import { useSession, signOut } from "next-auth/react"
 import { useAdmin } from "./AdminContext"
+import NotificationBell from "./NotificationBell"
 
 export default function Header() {
   const { data: session } = useSession()
@@ -22,7 +23,7 @@ export default function Header() {
             </svg>
           </button>
 
-          <div>
+          <div className="hidden sm:block">
             <h2 className="text-base sm:text-lg font-medium text-gray-800">
               Bienvenido, {session?.user?.name || "Admin"}
             </h2>
@@ -30,7 +31,8 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <span className="hidden sm:inline text-sm text-gray-500">
+          <NotificationBell />
+          <span className="hidden lg:inline text-sm text-gray-500">
             {session?.user?.email}
           </span>
           <button
