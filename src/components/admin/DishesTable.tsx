@@ -69,13 +69,13 @@ export default function DishesTable({ dishes }: DishesTableProps) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100">
       {/* Filters */}
-      <div className="p-4 border-b border-gray-100">
-        <div className="flex gap-2 flex-wrap">
+      <div className="p-3 sm:p-4 border-b border-gray-100">
+        <div className="flex gap-1.5 sm:gap-2 flex-wrap">
           {["todos", "entrantes", "principales", "postres", "bebidas"].map((cat) => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
+              className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm transition-colors ${
                 filter === cat
                   ? "bg-red-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"

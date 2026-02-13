@@ -19,11 +19,11 @@ export default function StatCard({
   trend,
 }: StatCardProps) {
   return (
-    <div className={`bg-white rounded-xl p-6 shadow-sm border ${highlight ? 'border-red-300 ring-1 ring-red-100' : 'border-gray-100'}`}>
+    <div className={`bg-white rounded-xl p-4 sm:p-6 shadow-sm border ${highlight ? 'border-red-300 ring-1 ring-red-100' : 'border-gray-100'}`}>
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-gray-500">{title}</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">{value}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2">{value}</p>
           {description && (
             <p className="text-sm text-gray-500 mt-1">{description}</p>
           )}
@@ -38,7 +38,7 @@ export default function StatCard({
             </p>
           )}
         </div>
-        <div className="text-4xl">{icon}</div>
+        <div className="text-3xl sm:text-4xl">{icon}</div>
       </div>
     </div>
   )

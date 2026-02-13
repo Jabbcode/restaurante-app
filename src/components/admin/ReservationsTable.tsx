@@ -81,14 +81,14 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100">
       {/* Filters */}
-      <div className="p-4 border-b border-gray-100">
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex gap-2 flex-wrap">
+      <div className="p-3 sm:p-4 border-b border-gray-100">
+        <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">
+          <div className="flex gap-1.5 sm:gap-2 flex-wrap">
             {["todos", "PENDING", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"].map((status) => (
               <button
                 key={status}
                 onClick={() => setFilter(status)}
-                className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm transition-colors ${
                   filter === status
                     ? "bg-red-600 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -99,7 +99,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
             ))}
           </div>
 
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-2 w-full sm:w-auto sm:ml-auto">
             <label className="text-sm text-gray-500">Fecha:</label>
             <input
               type="date"
