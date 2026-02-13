@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { categoryLabels } from "@/types/menu"
+import { Search, UtensilsCrossed, Mail, CalendarDays, Loader2 } from "lucide-react"
 
 interface SearchResults {
   dishes: Array<{
@@ -160,9 +161,7 @@ export default function GlobalSearch() {
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+        <Search className="w-4 h-4" />
         <span className="hidden sm:inline">Buscar...</span>
         <kbd className="hidden md:inline-flex items-center gap-1 px-1.5 py-0.5 text-xs text-gray-400 bg-white rounded border border-gray-200">
           <span className="text-xs">Ctrl</span>
@@ -187,9 +186,7 @@ export default function GlobalSearch() {
             >
               {/* Search input */}
               <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-200">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+                <Search className="w-5 h-5 text-gray-400" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -199,10 +196,7 @@ export default function GlobalSearch() {
                   className="flex-1 text-gray-800 placeholder-gray-400 outline-none"
                 />
                 {loading && (
-                  <svg className="w-5 h-5 text-gray-400 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
+                  <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />
                 )}
                 <kbd className="hidden sm:inline-flex px-1.5 py-0.5 text-xs text-gray-400 bg-gray-100 rounded">
                   ESC
@@ -242,7 +236,7 @@ export default function GlobalSearch() {
                                 selectedIndex === index ? "bg-gray-100" : ""
                               }`}
                             >
-                              <span className="text-lg">🍽️</span>
+                              <UtensilsCrossed className="w-5 h-5 text-orange-500" />
                               <div className="flex-1 min-w-0">
                                 <p className="font-medium text-gray-800 truncate">{dish.name}</p>
                                 <p className="text-xs text-gray-500">
@@ -275,7 +269,7 @@ export default function GlobalSearch() {
                                 selectedIndex === index ? "bg-gray-100" : ""
                               }`}
                             >
-                              <span className="text-lg">✉️</span>
+                              <Mail className="w-5 h-5 text-blue-500" />
                               <div className="flex-1 min-w-0">
                                 <p className="font-medium text-gray-800 truncate">{msg.name}</p>
                                 <p className="text-xs text-gray-500 truncate">{msg.email}</p>
@@ -306,7 +300,7 @@ export default function GlobalSearch() {
                                 selectedIndex === index ? "bg-gray-100" : ""
                               }`}
                             >
-                              <span className="text-lg">📅</span>
+                              <CalendarDays className="w-5 h-5 text-green-500" />
                               <div className="flex-1 min-w-0">
                                 <p className="font-medium text-gray-800 truncate">{res.name}</p>
                                 <p className="text-xs text-gray-500">
