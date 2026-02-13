@@ -22,7 +22,7 @@ export default function Navigation() {
           <li key={link.href}>
             <Link
               href={link.href}
-              className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-red-600 transition-colors font-medium"
             >
               {link.label}
             </Link>
@@ -33,7 +33,7 @@ export default function Navigation() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 text-gray-700 hover:text-orange-600"
+        className="md:hidden p-2 text-gray-700 hover:text-red-600"
         aria-label="Toggle menu"
       >
         <svg
@@ -68,7 +68,7 @@ export default function Navigation() {
               <Link
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors"
+                className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
               >
                 {link.label}
               </Link>

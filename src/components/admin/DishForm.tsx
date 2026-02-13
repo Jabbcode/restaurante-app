@@ -94,7 +94,7 @@ export default function DishForm({ dish }: DishFormProps) {
           <input
             {...register("name")}
             type="text"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
             placeholder="Ej: Paella Valenciana"
           />
           {errors.name && (
@@ -110,7 +110,7 @@ export default function DishForm({ dish }: DishFormProps) {
           <textarea
             {...register("description")}
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
             placeholder="Describe el plato..."
           />
           {errors.description && (
@@ -128,7 +128,7 @@ export default function DishForm({ dish }: DishFormProps) {
             type="number"
             step="0.01"
             min="0"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
             placeholder="0.00"
           />
           {errors.price && (
@@ -143,7 +143,7 @@ export default function DishForm({ dish }: DishFormProps) {
           </label>
           <select
             {...register("category")}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
           >
             <option value="">Selecciona una categoría</option>
             {Object.entries(categoryLabels).map(([value, label]) => (
@@ -165,7 +165,7 @@ export default function DishForm({ dish }: DishFormProps) {
           <input
             {...register("image")}
             type="url"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500"
             placeholder="https://..."
           />
           {errors.image && (
@@ -179,7 +179,7 @@ export default function DishForm({ dish }: DishFormProps) {
             <input
               {...register("available")}
               type="checkbox"
-              className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+              className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-orange-500"
             />
             <span className="text-sm text-gray-700">Disponible</span>
           </label>
@@ -188,7 +188,7 @@ export default function DishForm({ dish }: DishFormProps) {
             <input
               {...register("featured")}
               type="checkbox"
-              className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+              className="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-orange-500"
             />
             <span className="text-sm text-gray-700">Destacado</span>
           </label>
@@ -200,7 +200,7 @@ export default function DishForm({ dish }: DishFormProps) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg transition-colors disabled:opacity-50"
+          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition-colors disabled:opacity-50"
         >
           {isSubmitting ? "Guardando..." : isEditing ? "Actualizar Plato" : "Crear Plato"}
         </button>

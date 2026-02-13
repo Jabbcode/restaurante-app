@@ -1,5 +1,6 @@
 import SessionProvider from "@/components/providers/SessionProvider"
 import { ToastProvider } from "@/components/ui/Toast"
+import { AdminProvider } from "@/components/admin/AdminContext"
 import Sidebar from "@/components/admin/Sidebar"
 import Header from "@/components/admin/Header"
 
@@ -11,15 +12,17 @@ export default function AdminLayout({
   return (
     <SessionProvider>
       <ToastProvider>
-        <div className="flex min-h-screen bg-gray-100">
-          <Sidebar />
-          <div className="flex-1 flex flex-col">
-            <Header />
-            <main className="flex-1 p-6">
-              {children}
-            </main>
+        <AdminProvider>
+          <div className="flex min-h-screen bg-gray-100">
+            <Sidebar />
+            <div className="flex-1 flex flex-col lg:ml-0">
+              <Header />
+              <main className="flex-1 p-4 sm:p-6">
+                {children}
+              </main>
+            </div>
           </div>
-        </div>
+        </AdminProvider>
       </ToastProvider>
     </SessionProvider>
   )

@@ -125,7 +125,7 @@ export default function ContactForm() {
           required
           value={formData.nombre}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
           placeholder="Tu nombre"
         />
       </div>
@@ -144,7 +144,7 @@ export default function ContactForm() {
           required
           value={formData.email}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
           placeholder="tu@email.com"
         />
       </div>
@@ -163,7 +163,7 @@ export default function ContactForm() {
           value={formData.telefono}
           onChange={handleChange}
           onBlur={handlePhoneBlur}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors ${
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors ${
             phoneError ? "border-red-500" : "border-gray-300"
           }`}
           placeholder="+34 600 000 000"
@@ -187,7 +187,7 @@ export default function ContactForm() {
           rows={5}
           value={formData.mensaje}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors resize-none"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors resize-none"
           placeholder="¿En qué podemos ayudarte?"
         />
       </div>
@@ -201,7 +201,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={sending}
-        className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-orange-400 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+        className="w-full bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-medium py-3 px-6 rounded-lg transition-colors"
       >
         {sending ? "Enviando..." : "Enviar Mensaje"}
       </button>
