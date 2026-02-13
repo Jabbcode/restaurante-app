@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/Toast"
+import { useConfirm } from "@/hooks/useConfirm"
 import { categoryLabels } from "@/types/menu"
 
 interface Dish {
@@ -26,6 +27,7 @@ const ITEMS_PER_PAGE = 10
 export default function DishesTable({ dishes }: DishesTableProps) {
   const router = useRouter()
   const { showToast } = useToast()
+  const { confirm, ConfirmDialog } = useConfirm()
   const [filter, setFilter] = useState("todos")
   const [deleting, setDeleting] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -46,7 +48,15 @@ export default function DishesTable({ dishes }: DishesTableProps) {
   const paginatedDishes = filteredDishes.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`¿Estás seguro de eliminar "${name}"?`)) return
+    const confirmed = await confirm({
+      title: "Eliminar plato",
+      message: `¿Estás seguro de eliminar "${name}"? Esta acción no se puede deshacer.`,
+      confirmText: "Eliminar",
+      cancelText: "Cancelar",
+      variant: "danger",
+    })
+
+    if (!confirmed) return
 
     setDeleting(id)
     try {
@@ -81,6 +91,8 @@ export default function DishesTable({ dishes }: DishesTableProps) {
   }
 
   return (
+    <>
+    <ConfirmDialog />
     <div className="bg-white rounded-xl shadow-sm border border-gray-100">
       {/* Filters */}
       <div className="p-3 sm:p-4 border-b border-gray-100">
@@ -328,5 +340,6 @@ export default function DishesTable({ dishes }: DishesTableProps) {
         )}
       </div>
     </div>
+    </>
   )
 }
