@@ -117,7 +117,7 @@ export default function NosotrosPage() {
                 key={index}
                 className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 text-orange-600 rounded-full mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-600 rounded-full mb-4">
                   {valor.icon}
                 </div>
                 <h3 className="font-serif text-xl font-bold text-gray-800 mb-2">
@@ -157,7 +157,7 @@ export default function NosotrosPage() {
               <h3 className="font-serif text-xl font-bold text-gray-800">
                 Chef Antonio García
               </h3>
-              <p className="text-orange-600 font-medium mb-2">Chef Ejecutivo</p>
+              <p className="text-red-600 font-medium mb-2">Chef Ejecutivo</p>
               <p className="text-gray-600 text-sm">
                 30 años de experiencia llevando la tradición familiar a nuevas alturas.
               </p>
@@ -175,7 +175,7 @@ export default function NosotrosPage() {
               <h3 className="font-serif text-xl font-bold text-gray-800">
                 María López
               </h3>
-              <p className="text-orange-600 font-medium mb-2">Chef Pastelera</p>
+              <p className="text-red-600 font-medium mb-2">Chef Pastelera</p>
               <p className="text-gray-600 text-sm">
                 Creadora de nuestros postres más emblemáticos y dulces tentaciones.
               </p>
@@ -193,7 +193,7 @@ export default function NosotrosPage() {
               <h3 className="font-serif text-xl font-bold text-gray-800">
                 Carlos Martínez
               </h3>
-              <p className="text-orange-600 font-medium mb-2">Sommelier</p>
+              <p className="text-red-600 font-medium mb-2">Sommelier</p>
               <p className="text-gray-600 text-sm">
                 Experto en maridajes que complementan perfectamente cada plato.
               </p>
