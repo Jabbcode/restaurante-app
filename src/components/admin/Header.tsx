@@ -2,6 +2,9 @@
 
 import { useSession, signOut } from "next-auth/react"
 import { useAdmin } from "./AdminContext"
+import GlobalSearch from "./GlobalSearch"
+import NotificationBell from "./NotificationBell"
+import { Menu, LogOut } from "lucide-react"
 
 export default function Header() {
   const { data: session } = useSession()
@@ -15,14 +18,12 @@ export default function Header() {
           <button
             onClick={toggleSidebar}
             className="lg:hidden p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-            aria-label="Abrir menú"
+            aria-label="Abrir menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="w-6 h-6" />
           </button>
 
-          <div>
+          <div className="hidden sm:block">
             <h2 className="text-base sm:text-lg font-medium text-gray-800">
               Bienvenido, {session?.user?.name || "Admin"}
             </h2>
@@ -30,15 +31,17 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <span className="hidden sm:inline text-sm text-gray-500">
+          <GlobalSearch />
+          <NotificationBell />
+          <span className="hidden lg:inline text-sm text-gray-500">
             {session?.user?.email}
           </span>
           <button
             onClick={() => signOut({ callbackUrl: "/login" })}
-            className="text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5 hover:bg-gray-100 rounded-lg"
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors px-3 py-1.5 hover:bg-gray-100 rounded-lg"
           >
-            <span className="hidden sm:inline">Cerrar Sesión</span>
-            <span className="sm:hidden">Salir</span>
+            <LogOut className="w-4 h-4" />
+            <span className="hidden sm:inline">Cerrar Sesion</span>
           </button>
         </div>
       </div>

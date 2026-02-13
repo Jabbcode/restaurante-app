@@ -5,6 +5,8 @@ import { Dish } from "@/types/menu";
 import DishCard from "./DishCard";
 import CategoryFilter from "./CategoryFilter";
 import Pagination from "@/components/ui/Pagination";
+import Lightbox from "@/components/ui/Lightbox";
+import { useLightbox } from "@/hooks/useLightbox";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -29,6 +31,17 @@ export default function MenuContent({ dishes }: MenuContentProps) {
     return filteredDishes.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   }, [filteredDishes, currentPage]);
 
+  // Lightbox images from filtered dishes
+  const lightboxImages = useMemo(() => {
+    return filteredDishes.map((dish) => ({
+      src: dish.image,
+      alt: dish.name,
+      title: dish.name,
+    }));
+  }, [filteredDishes]);
+
+  const { isOpen, currentIndex, openLightbox, closeLightbox } = useLightbox(lightboxImages);
+
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setCurrentPage(1);
@@ -37,6 +50,14 @@ export default function MenuContent({ dishes }: MenuContentProps) {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleImageClick = (dishId: string) => {
+    // Find the index in the filtered dishes array
+    const index = filteredDishes.findIndex((d) => d.id === dishId);
+    if (index !== -1) {
+      openLightbox(index);
+    }
   };
 
   return (
@@ -50,7 +71,11 @@ export default function MenuContent({ dishes }: MenuContentProps) {
       {/* Dishes Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {paginatedDishes.map((dish) => (
-          <DishCard key={dish.id} dish={dish} />
+          <DishCard
+            key={dish.id}
+            dish={dish}
+            onImageClick={() => handleImageClick(dish.id)}
+          />
         ))}
       </div>
 
@@ -58,7 +83,7 @@ export default function MenuContent({ dishes }: MenuContentProps) {
       {filteredDishes.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">
-            No hay platos disponibles en esta categoría.
+            No hay platos disponibles en esta categoria.
           </p>
         </div>
       )}
@@ -68,6 +93,14 @@ export default function MenuContent({ dishes }: MenuContentProps) {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+      />
+
+      {/* Lightbox */}
+      <Lightbox
+        images={lightboxImages}
+        initialIndex={currentIndex}
+        isOpen={isOpen}
+        onClose={closeLightbox}
       />
     </>
   );

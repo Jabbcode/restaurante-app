@@ -3,12 +3,25 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAdmin } from "./AdminContext"
+import {
+  LayoutDashboard,
+  UtensilsCrossed,
+  Mail,
+  CalendarDays,
+  LucideIcon,
+} from "lucide-react"
 
-const navItems = [
-  { href: "/admin", label: "Dashboard", icon: "📊" },
-  { href: "/admin/platos", label: "Platos", icon: "🍽️" },
-  { href: "/admin/mensajes", label: "Mensajes", icon: "✉️" },
-  { href: "/admin/reservaciones", label: "Reservaciones", icon: "📅" },
+interface NavItem {
+  href: string
+  label: string
+  icon: LucideIcon
+}
+
+const navItems: NavItem[] = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/platos", label: "Platos", icon: UtensilsCrossed },
+  { href: "/admin/mensajes", label: "Mensajes", icon: Mail },
+  { href: "/admin/reservaciones", label: "Reservaciones", icon: CalendarDays },
 ]
 
 export default function Sidebar() {
@@ -41,7 +54,7 @@ export default function Sidebar() {
               <h1 className="font-serif text-xl font-bold text-red-400">
                 Restaurante
               </h1>
-              <p className="text-gray-400 text-sm">Panel de Administración</p>
+              <p className="text-gray-400 text-sm">Panel de Administracion</p>
             </Link>
           </div>
 
@@ -49,6 +62,7 @@ export default function Sidebar() {
             {navItems.map((item) => {
               const isActive = pathname === item.href ||
                 (item.href !== "/admin" && pathname.startsWith(item.href))
+              const Icon = item.icon
 
               return (
                 <Link
@@ -64,7 +78,7 @@ export default function Sidebar() {
                     }
                   `}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  <Icon className="w-5 h-5" />
                   {item.label}
                 </Link>
               )
