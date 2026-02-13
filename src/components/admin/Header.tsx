@@ -3,6 +3,7 @@
 import { useSession, signOut } from "next-auth/react"
 import { useAdmin } from "./AdminContext"
 import GlobalSearch from "./GlobalSearch"
+import NotificationBell from "./NotificationBell"
 
 export default function Header() {
   const { data: session } = useSession()
@@ -32,6 +33,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2 sm:gap-4">
           <GlobalSearch />
+          <NotificationBell />
           <span className="hidden lg:inline text-sm text-gray-500">
             {session?.user?.email}
           </span>
