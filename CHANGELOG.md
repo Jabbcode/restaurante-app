@@ -6,6 +6,25 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [v1.5.0] - 2026-02-13 - Rediseño Visual y Responsive
+
+### Added
+- [[033]](https://www.notion.so/033-Sistema-de-Colores-Fase-1-30514748013a814697c0f520de08aa4a) Nuevo sistema de colores con tema rojo
+- [[034]](https://www.notion.so/034-Componentes-de-Layout-Fase-2-30514748013a81be987fe1e872b9c01a) Componentes de layout con nuevo esquema de colores
+- [[035]](https://www.notion.so/035-P-gina-Principal-Fase-3-30514748013a81ad896cf3f5e7d85c27) HeroSection, NewsletterSection y Breadcrumb reutilizables
+- [[036]](https://www.notion.so/036-P-gina-de-Men-Fase-4-30514748013a81e6b427e555d1c927fb) Paginación y breadcrumb en página de menú
+- [[037]](https://www.notion.so/037-Otras-P-ginas-P-blicas-Fase-5-30514748013a814396b7e9265670a8b0) Actualización de colores en páginas públicas
+- [[038]](https://www.notion.so/038-Admin-Dashboard-Fase-6-30514748013a81c2b2b1ee4f64557211) Actualización de colores en panel administrativo
+- [[039]](https://www.notion.so/039-Componentes-UI-Extras-Fase-7-30514748013a8112a706e96a8460e05b) Componente SearchBar con variante hero
+- [[040]](https://www.notion.so/040-Admin-Panel-Responsive-30614748013a8140901cc0c9e5c8e8ec) Diseño responsive completo del panel administrativo
+
+### Changed
+- Esquema de colores principal de naranja a rojo en toda la aplicación
+- Sidebar colapsable con menú hamburguesa en móvil
+- Tablas y formularios adaptativos para dispositivos móviles
+
+---
+
 ## [v1.4.0] - 2026-02-12 - Estadísticas y Mejoras UX
 
 ### Added
@@ -73,6 +92,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+[v1.5.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.5.0
 [v1.4.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.3.0
 [v1.2.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.2.0
