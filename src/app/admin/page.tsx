@@ -16,15 +16,15 @@ export default async function AdminDashboard() {
 
       {/* Today's highlight */}
       {stats.reservations.today > 0 && (
-        <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-6">
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-2xl">📅</span>
               <div>
-                <p className="font-medium text-orange-800">
+                <p className="font-medium text-red-800">
                   {stats.reservations.today} reservación{stats.reservations.today > 1 ? 'es' : ''} para hoy
                 </p>
-                <p className="text-sm text-orange-600">
+                <p className="text-sm text-red-600">
                   {stats.reservations.confirmedToday} confirmada{stats.reservations.confirmedToday !== 1 ? 's' : ''}
                   {stats.reservations.today - stats.reservations.confirmedToday > 0 &&
                     `, ${stats.reservations.today - stats.reservations.confirmedToday} pendiente${stats.reservations.today - stats.reservations.confirmedToday > 1 ? 's' : ''}`
@@ -34,7 +34,7 @@ export default async function AdminDashboard() {
             </div>
             <Link
               href="/admin/reservaciones"
-              className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
             >
               Ver reservaciones
             </Link>
@@ -77,7 +77,7 @@ export default async function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             href="/admin/platos"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-orange-300 hover:bg-orange-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors"
           >
             <span className="text-2xl">🍽️</span>
             <div>
@@ -87,7 +87,7 @@ export default async function AdminDashboard() {
           </Link>
           <Link
             href="/admin/mensajes"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-orange-300 hover:bg-orange-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors"
           >
             <span className="text-2xl">✉️</span>
             <div>
@@ -102,7 +102,7 @@ export default async function AdminDashboard() {
           </Link>
           <Link
             href="/admin/reservaciones"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-orange-300 hover:bg-orange-50 transition-colors"
+            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-red-300 hover:bg-red-50 transition-colors"
           >
             <span className="text-2xl">📅</span>
             <div>

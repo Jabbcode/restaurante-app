@@ -17,7 +17,7 @@ export default function Sidebar() {
     <aside className="w-64 bg-gray-900 text-white min-h-screen">
       <div className="p-6">
         <Link href="/admin" className="block">
-          <h1 className="font-serif text-xl font-bold text-orange-400">
+          <h1 className="font-serif text-xl font-bold text-red-400">
             Restaurante
           </h1>
           <p className="text-gray-400 text-sm">Panel de Administración</p>
@@ -37,7 +37,7 @@ export default function Sidebar() {
                 flex items-center gap-3 px-6 py-3 text-sm
                 transition-colors
                 ${isActive
-                  ? "bg-orange-600 text-white"
+                  ? "bg-red-600 text-white"
                   : "text-gray-300 hover:bg-gray-800 hover:text-white"
                 }
               `}
