@@ -101,7 +101,7 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
               onClick={() => setFilter(status)}
               className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
                 filter === status
-                  ? "bg-orange-600 text-white"
+                  ? "bg-red-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -135,7 +135,7 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {filteredMessages.map((msg) => (
-              <tr key={msg.id} className={`hover:bg-gray-50 ${msg.status === "PENDING" ? "bg-orange-50/50" : ""}`}>
+              <tr key={msg.id} className={`hover:bg-gray-50 ${msg.status === "PENDING" ? "bg-red-50/50" : ""}`}>
                 <td className="px-4 py-3">
                   <div>
                     <p className="font-medium text-gray-800">{msg.name}</p>

@@ -90,7 +90,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
                 onClick={() => setFilter(status)}
                 className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
                   filter === status
-                    ? "bg-orange-600 text-white"
+                    ? "bg-red-600 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -151,7 +151,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
                   key={res.id}
                   className={`hover:bg-gray-50 ${
                     res.status === "PENDING" ? "bg-yellow-50/50" : ""
-                  } ${isToday ? "border-l-4 border-l-orange-500" : ""}`}
+                  } ${isToday ? "border-l-4 border-l-red-500" : ""}`}
                 >
                   <td className="px-4 py-3">
                     <div>
@@ -166,7 +166,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
                   </td>
                   <td className="px-4 py-3">
                     <div>
-                      <p className={`font-medium ${isToday ? "text-orange-600" : "text-gray-800"}`}>
+                      <p className={`font-medium ${isToday ? "text-red-600" : "text-gray-800"}`}>
                         {formatDate(res.date)}
                         {isToday && <span className="ml-1 text-xs">(Hoy)</span>}
                       </p>

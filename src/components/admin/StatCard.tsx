@@ -19,7 +19,7 @@ export default function StatCard({
   trend,
 }: StatCardProps) {
   return (
-    <div className={`bg-white rounded-xl p-6 shadow-sm border ${highlight ? 'border-orange-300 ring-1 ring-orange-100' : 'border-gray-100'}`}>
+    <div className={`bg-white rounded-xl p-6 shadow-sm border ${highlight ? 'border-red-300 ring-1 ring-red-100' : 'border-gray-100'}`}>
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-gray-500">{title}</p>

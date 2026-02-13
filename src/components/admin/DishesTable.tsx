@@ -77,7 +77,7 @@ export default function DishesTable({ dishes }: DishesTableProps) {
               onClick={() => setFilter(cat)}
               className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
                 filter === cat
-                  ? "bg-orange-600 text-white"
+                  ? "bg-red-600 text-white"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
@@ -125,7 +125,7 @@ export default function DishesTable({ dishes }: DishesTableProps) {
                     <div>
                       <p className="font-medium text-gray-800">{dish.name}</p>
                       {dish.featured && (
-                        <span className="text-xs text-orange-600">⭐ Destacado</span>
+                        <span className="text-xs text-red-600">⭐ Destacado</span>
                       )}
                     </div>
                   </div>
