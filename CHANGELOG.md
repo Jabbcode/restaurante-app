@@ -6,6 +6,17 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+## [v1.6.0] - 2026-02-13 - Mejoras de Navegación y UX Admin
+
+### Added
+- [[041]](https://www.notion.so/041-Tablas-Responsive-en-Admin-30614748013a81f9add1d50bd7c4f492) Tablas responsive con paginación y vista de cards en móvil
+- [[043]](https://www.notion.so/043-Bot-n-Panel-Admin-en-navbar-p-blico-solo-logueado-30614748013a81099763f0a5666b4d9f) Botón de acceso al Panel Admin en navbar público (solo usuarios autenticados)
+
+### Changed
+- [[042]](https://www.notion.so/042-Ocultar-Footer-en-Admin-30614748013a81b2a128d273348f9a4c) Footer oculto en todas las páginas del panel administrativo
+
+---
+
 ## [v1.5.0] - 2026-02-13 - Rediseño Visual y Responsive
 
 ### Added
@@ -92,6 +103,7 @@ El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1
 
 ---
 
+[v1.6.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.6.0
 [v1.5.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.5.0
 [v1.4.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/Jabbcode/restaurante-app/releases/tag/v1.3.0
