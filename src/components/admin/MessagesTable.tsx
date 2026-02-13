@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/Toast"
+import { useConfirm } from "@/hooks/useConfirm"
 
 interface Message {
   id: string
@@ -39,6 +40,7 @@ const ITEMS_PER_PAGE = 10
 export default function MessagesTable({ messages }: MessagesTableProps) {
   const router = useRouter()
   const { showToast } = useToast()
+  const { confirm, ConfirmDialog } = useConfirm()
   const [filter, setFilter] = useState("todos")
   const [deleting, setDeleting] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -59,7 +61,15 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
   const paginatedMessages = filteredMessages.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`¿Estás seguro de eliminar el mensaje de "${name}"?`)) return
+    const confirmed = await confirm({
+      title: "Eliminar mensaje",
+      message: `¿Estás seguro de eliminar el mensaje de "${name}"? Esta acción no se puede deshacer.`,
+      confirmText: "Eliminar",
+      cancelText: "Cancelar",
+      variant: "danger",
+    })
+
+    if (!confirmed) return
 
     setDeleting(id)
     try {
@@ -113,6 +123,8 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
   }
 
   return (
+    <>
+    <ConfirmDialog />
     <div className="bg-white rounded-xl shadow-sm border border-gray-100">
       {/* Filters */}
       <div className="p-3 sm:p-4 border-b border-gray-100">
@@ -338,5 +350,6 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
         )}
       </div>
     </div>
+    </>
   )
 }
