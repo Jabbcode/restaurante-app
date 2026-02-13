@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
     const dishes = await prisma.dish.findMany({
       where,
-      orderBy: { createdAt: "desc" },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
     })
 
     // Convert Decimal to number for JSON response
