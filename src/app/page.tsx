@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { getFeaturedDishes } from "@/lib/dishes";
 import DishCard from "@/components/menu/DishCard";
+import HeroSection from "@/components/ui/HeroSection";
+import NewsletterSection from "@/components/ui/NewsletterSection";
 
 export default async function Home() {
   const featuredDishes = await getFeaturedDishes();
@@ -8,33 +10,12 @@ export default async function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-[80vh] min-h-[500px] flex items-center justify-center bg-gray-900">
-        {/* Background Image Overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920')",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">
-            Restaurante
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">
-            Cocina tradicional con ingredientes frescos y de temporada
-          </p>
-          <Link
-            href="/menu"
-            className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium px-8 py-4 rounded-lg text-lg transition-colors"
-          >
-            Ver Menú
-          </Link>
-        </div>
-      </section>
+      <HeroSection
+        title="Restaurante"
+        subtitle="Cocina tradicional con ingredientes frescos y de temporada"
+        ctaText="Ver Menú"
+        ctaHref="/menu"
+      />
 
       {/* About Section */}
       <section className="py-20 bg-amber-50">
@@ -102,6 +83,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Newsletter Section */}
+      <NewsletterSection />
 
       {/* CTA Section */}
       <section className="py-16 bg-orange-600">
