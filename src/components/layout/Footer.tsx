@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-serif font-bold mb-4 text-orange-400">
+            <h3 className="text-lg font-serif font-bold mb-4 text-red-400">
               Contacto
             </h3>
             <ul className="space-y-2 text-gray-300">
@@ -35,7 +35,7 @@ export default function Footer() {
 
           {/* Hours */}
           <div>
-            <h3 className="text-lg font-serif font-bold mb-4 text-orange-400">
+            <h3 className="text-lg font-serif font-bold mb-4 text-red-400">
               Horario
             </h3>
             <ul className="space-y-2 text-gray-300">
@@ -47,13 +47,13 @@ export default function Footer() {
 
           {/* Social Links */}
           <div>
-            <h3 className="text-lg font-serif font-bold mb-4 text-orange-400">
+            <h3 className="text-lg font-serif font-bold mb-4 text-red-400">
               Síguenos
             </h3>
             <div className="flex gap-4">
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@ export default function Footer() {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@ export default function Footer() {
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
                 aria-label="Twitter"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
