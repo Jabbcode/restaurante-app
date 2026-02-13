@@ -87,8 +87,74 @@ export default function DishesTable({ dishes }: DishesTableProps) {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
+      {/* Mobile Cards */}
+      <div className="md:hidden divide-y divide-gray-100">
+        {filteredDishes.map((dish) => (
+          <div key={dish.id} className="p-4">
+            <div className="flex gap-3">
+              <img
+                src={dish.image}
+                alt={dish.name}
+                className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://placehold.co/64x64/f5f5f5/999?text=🍽️"
+                }}
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <p className="font-medium text-gray-800">{dish.name}</p>
+                    {dish.featured && (
+                      <span className="text-xs text-red-600">⭐ Destacado</span>
+                    )}
+                  </div>
+                  <span className="font-semibold text-gray-800 whitespace-nowrap">
+                    {dish.price.toFixed(2)} €
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  {categoryLabels[dish.category as keyof typeof categoryLabels]}
+                </p>
+                <div className="flex items-center justify-between mt-2">
+                  <button
+                    onClick={() => toggleAvailable(dish.id, dish.available)}
+                    className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                      dish.available
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {dish.available ? "Disponible" : "No disponible"}
+                  </button>
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href={`/admin/platos/${dish.id}`}
+                      className="text-sm text-blue-600 hover:text-blue-800"
+                    >
+                      Editar
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(dish.id, dish.name)}
+                      disabled={deleting === dish.id}
+                      className="text-sm text-red-600 hover:text-red-800 disabled:opacity-50"
+                    >
+                      {deleting === dish.id ? "..." : "Eliminar"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+        {filteredDishes.length === 0 && (
+          <div className="p-8 text-center text-gray-500">
+            No hay platos en esta categoría
+          </div>
+        )}
+      </div>
+
+      {/* Desktop Table */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>

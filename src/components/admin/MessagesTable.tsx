@@ -90,6 +90,14 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
     })
   }
 
+  const formatDateShort = (dateStr: string) => {
+    const date = new Date(dateStr)
+    return date.toLocaleDateString("es-ES", {
+      day: "2-digit",
+      month: "short",
+    })
+  }
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100">
       {/* Filters */}
@@ -111,8 +119,62 @@ export default function MessagesTable({ messages }: MessagesTableProps) {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
+      {/* Mobile Cards */}
+      <div className="md:hidden divide-y divide-gray-100">
+        {filteredMessages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`p-4 ${msg.status === "PENDING" ? "bg-red-50/50" : ""}`}
+          >
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <div>
+                <p className="font-medium text-gray-800">{msg.name}</p>
+                <p className="text-xs text-gray-500">{msg.email}</p>
+              </div>
+              <span className="text-xs text-gray-400 whitespace-nowrap">
+                {formatDateShort(msg.createdAt)}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+              {msg.message}
+            </p>
+            <div className="flex items-center justify-between">
+              <select
+                value={msg.status}
+                onChange={(e) => updateStatus(msg.id, e.target.value as Message["status"])}
+                className={`px-2 py-1 rounded-full text-xs font-medium border-0 cursor-pointer ${statusColors[msg.status]}`}
+              >
+                {Object.entries(statusLabels).map(([value, label]) => (
+                  <option key={value} value={value}>{label}</option>
+                ))}
+              </select>
+              <div className="flex items-center gap-3">
+                <Link
+                  href={`/admin/mensajes/${msg.id}`}
+                  className="text-sm text-blue-600 hover:text-blue-800"
+                >
+                  Ver
+                </Link>
+                <button
+                  onClick={() => handleDelete(msg.id, msg.name)}
+                  disabled={deleting === msg.id}
+                  className="text-sm text-red-600 hover:text-red-800 disabled:opacity-50"
+                >
+                  {deleting === msg.id ? "..." : "Eliminar"}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+        {filteredMessages.length === 0 && (
+          <div className="p-8 text-center text-gray-500">
+            No hay mensajes con este estado
+          </div>
+        )}
+      </div>
+
+      {/* Desktop Table */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
