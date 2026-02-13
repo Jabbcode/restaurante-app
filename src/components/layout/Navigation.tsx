@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const navLinks = [
   { href: "/", label: "Inicio" },
@@ -13,6 +14,7 @@ const navLinks = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <nav className="relative">
@@ -28,6 +30,16 @@ export default function Navigation() {
             </Link>
           </li>
         ))}
+        {session && (
+          <li>
+            <Link
+              href="/admin"
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm"
+            >
+              Panel Admin
+            </Link>
+          </li>
+        )}
       </ul>
 
       {/* Mobile Menu Button */}
@@ -74,6 +86,17 @@ export default function Navigation() {
               </Link>
             </li>
           ))}
+          {session && (
+            <li className="border-t border-gray-100 mt-2 pt-2">
+              <Link
+                href="/admin"
+                onClick={() => setIsOpen(false)}
+                className="block px-4 py-2 text-red-600 font-medium hover:bg-red-50 transition-colors"
+              >
+                Panel Admin
+              </Link>
+            </li>
+          )}
         </ul>
       )}
     </nav>
