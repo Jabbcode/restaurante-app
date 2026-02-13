@@ -20,7 +20,7 @@ export default function Sidebar() {
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
           onClick={closeSidebar}
         />
       )}
@@ -28,7 +28,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:static inset-y-0 left-0 z-50
+          fixed lg:static inset-y-0 left-0 z-30
           w-64 bg-gray-900 text-white
           transform transition-transform duration-300 ease-in-out
           lg:transform-none lg:translate-x-0
@@ -71,16 +71,6 @@ export default function Sidebar() {
             })}
           </nav>
 
-          <div className="p-4 border-t border-gray-800">
-            <Link
-              href="/"
-              onClick={closeSidebar}
-              className="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors"
-            >
-              <span>←</span>
-              Volver al sitio
-            </Link>
-          </div>
         </div>
       </aside>
     </>
