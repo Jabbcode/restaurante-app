@@ -39,17 +39,36 @@ const statusColors: Record<Reservation["status"], string> = {
   NO_SHOW: "bg-gray-100 text-gray-700",
 }
 
+const ITEMS_PER_PAGE = 10
+
 export default function ReservationsTable({ reservations }: ReservationsTableProps) {
   const router = useRouter()
   const { showToast } = useToast()
   const [filter, setFilter] = useState("todos")
   const [dateFilter, setDateFilter] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
 
   const filteredReservations = reservations.filter((res) => {
     const statusMatch = filter === "todos" || res.status === filter
     const dateMatch = !dateFilter || res.date.startsWith(dateFilter)
     return statusMatch && dateMatch
   })
+
+  // Reset to page 1 when filter changes
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter)
+    setCurrentPage(1)
+  }
+
+  const handleDateFilterChange = (newDate: string) => {
+    setDateFilter(newDate)
+    setCurrentPage(1)
+  }
+
+  // Pagination
+  const totalPages = Math.ceil(filteredReservations.length / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const paginatedReservations = filteredReservations.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
@@ -87,7 +106,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
             {["todos", "PENDING", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"].map((status) => (
               <button
                 key={status}
-                onClick={() => setFilter(status)}
+                onClick={() => handleFilterChange(status)}
                 className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm transition-colors ${
                   filter === status
                     ? "bg-red-600 text-white"
@@ -104,12 +123,12 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
             <input
               type="date"
               value={dateFilter}
-              onChange={(e) => setDateFilter(e.target.value)}
+              onChange={(e) => handleDateFilterChange(e.target.value)}
               className="flex-1 sm:flex-none px-3 py-1.5 border border-gray-200 rounded-lg text-sm"
             />
             {dateFilter && (
               <button
-                onClick={() => setDateFilter("")}
+                onClick={() => handleDateFilterChange("")}
                 className="text-sm text-gray-500 hover:text-gray-700"
               >
                 Limpiar
@@ -121,7 +140,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
 
       {/* Mobile Cards */}
       <div className="md:hidden divide-y divide-gray-100">
-        {filteredReservations.map((res) => {
+        {paginatedReservations.map((res) => {
           const isToday = res.date.startsWith(todayStr)
           const isPast = new Date(res.date) < new Date(todayStr)
 
@@ -205,9 +224,34 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
             </div>
           )
         })}
-        {filteredReservations.length === 0 && (
+        {paginatedReservations.length === 0 && (
           <div className="p-8 text-center text-gray-500">
             No hay reservaciones con estos filtros
+          </div>
+        )}
+
+        {/* Mobile Pagination */}
+        {totalPages > 1 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filteredReservations.length)} de {filteredReservations.length}
+            </span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Anterior
+              </button>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Siguiente
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -235,7 +279,7 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {filteredReservations.map((res) => {
+            {paginatedReservations.map((res) => {
               const isToday = res.date.startsWith(todayStr)
               const isPast = new Date(res.date) < new Date(todayStr)
 
@@ -326,9 +370,51 @@ export default function ReservationsTable({ reservations }: ReservationsTablePro
           </tbody>
         </table>
 
-        {filteredReservations.length === 0 && (
+        {paginatedReservations.length === 0 && (
           <div className="p-8 text-center text-gray-500">
             No hay reservaciones con estos filtros
+          </div>
+        )}
+
+        {/* Desktop Pagination */}
+        {totalPages > 1 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Mostrando {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filteredReservations.length)} de {filteredReservations.length} reservaciones
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                «
+              </button>
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Anterior
+              </button>
+              <span className="px-3 py-1 text-sm text-gray-600">
+                Página {currentPage} de {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Siguiente
+              </button>
+              <button
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                »
+              </button>
+            </div>
           </div>
         )}
       </div>

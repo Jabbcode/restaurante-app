@@ -21,15 +21,29 @@ interface DishesTableProps {
   dishes: Dish[]
 }
 
+const ITEMS_PER_PAGE = 10
+
 export default function DishesTable({ dishes }: DishesTableProps) {
   const router = useRouter()
   const { showToast } = useToast()
   const [filter, setFilter] = useState("todos")
   const [deleting, setDeleting] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const filteredDishes = filter === "todos"
     ? dishes
     : dishes.filter((dish) => dish.category === filter)
+
+  // Reset to page 1 when filter changes
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter)
+    setCurrentPage(1)
+  }
+
+  // Pagination
+  const totalPages = Math.ceil(filteredDishes.length / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const paginatedDishes = filteredDishes.slice(startIndex, startIndex + ITEMS_PER_PAGE)
 
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`¿Estás seguro de eliminar "${name}"?`)) return
@@ -74,7 +88,7 @@ export default function DishesTable({ dishes }: DishesTableProps) {
           {["todos", "entrantes", "principales", "postres", "bebidas"].map((cat) => (
             <button
               key={cat}
-              onClick={() => setFilter(cat)}
+              onClick={() => handleFilterChange(cat)}
               className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm transition-colors ${
                 filter === cat
                   ? "bg-red-600 text-white"
@@ -89,7 +103,7 @@ export default function DishesTable({ dishes }: DishesTableProps) {
 
       {/* Mobile Cards */}
       <div className="md:hidden divide-y divide-gray-100">
-        {filteredDishes.map((dish) => (
+        {paginatedDishes.map((dish) => (
           <div key={dish.id} className="p-4">
             <div className="flex gap-3">
               <img
@@ -146,9 +160,34 @@ export default function DishesTable({ dishes }: DishesTableProps) {
             </div>
           </div>
         ))}
-        {filteredDishes.length === 0 && (
+        {paginatedDishes.length === 0 && (
           <div className="p-8 text-center text-gray-500">
             No hay platos en esta categoría
+          </div>
+        )}
+
+        {/* Mobile Pagination */}
+        {totalPages > 1 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filteredDishes.length)} de {filteredDishes.length}
+            </span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Anterior
+              </button>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Siguiente
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -176,7 +215,7 @@ export default function DishesTable({ dishes }: DishesTableProps) {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {filteredDishes.map((dish) => (
+            {paginatedDishes.map((dish) => (
               <tr key={dish.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
@@ -240,9 +279,51 @@ export default function DishesTable({ dishes }: DishesTableProps) {
           </tbody>
         </table>
 
-        {filteredDishes.length === 0 && (
+        {paginatedDishes.length === 0 && (
           <div className="p-8 text-center text-gray-500">
             No hay platos en esta categoría
+          </div>
+        )}
+
+        {/* Desktop Pagination */}
+        {totalPages > 1 && (
+          <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Mostrando {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filteredDishes.length)} de {filteredDishes.length} platos
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+                className="px-2 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                «
+              </button>
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Anterior
+              </button>
+              <span className="px-3 py-1 text-sm text-gray-600">
+                Página {currentPage} de {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                Siguiente
+              </button>
+              <button
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 text-sm rounded-lg border border-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              >
+                »
+              </button>
+            </div>
           </div>
         )}
       </div>
