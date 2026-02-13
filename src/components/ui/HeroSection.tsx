@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SearchBar from "./SearchBar";
 
 interface HeroSectionProps {
   title: string;
@@ -8,6 +9,9 @@ interface HeroSectionProps {
   ctaHref?: string;
   height?: "full" | "large" | "medium" | "small";
   overlay?: "light" | "medium" | "dark";
+  showSearch?: boolean;
+  searchPlaceholder?: string;
+  onSearch?: (query: string) => void;
 }
 
 const heightClasses = {
@@ -31,6 +35,9 @@ export default function HeroSection({
   ctaHref,
   height = "large",
   overlay = "medium",
+  showSearch = false,
+  searchPlaceholder = "Buscar en el menú...",
+  onSearch,
 }: HeroSectionProps) {
   return (
     <section
@@ -57,10 +64,19 @@ export default function HeroSection({
         {ctaText && ctaHref && (
           <Link
             href={ctaHref}
-            className="inline-block bg-orange-600 hover:bg-orange-700 text-white font-medium px-8 py-4 rounded-lg text-lg transition-colors"
+            className="inline-block bg-red-600 hover:bg-red-700 text-white font-medium px-8 py-4 rounded-lg text-lg transition-colors"
           >
             {ctaText}
           </Link>
+        )}
+        {showSearch && (
+          <div className="mt-8 max-w-xl mx-auto">
+            <SearchBar
+              variant="hero"
+              placeholder={searchPlaceholder}
+              onSearch={onSearch}
+            />
+          </div>
         )}
       </div>
     </section>
